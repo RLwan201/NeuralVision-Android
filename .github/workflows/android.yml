@@ -27,10 +27,16 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
+          
+      - name: Install NeuralVision icon resources
+        run: |
+          mkdir -p app/src/main/res
+          unzip -o NeuralVision_icon_resources.zip -d /tmp/neuralvision_icons
+          cp -r /tmp/neuralvision_icons/res/. app/src/main/res/
 
       - name: Build debug APK
         run: gradle assembleDebug
-
+        
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
